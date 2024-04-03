@@ -1,2 +1,2 @@
-# rent-a-ride-
+# rent-a-ride
 aplikacja do wypożyczania samochodów
