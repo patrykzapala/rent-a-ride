@@ -63,6 +63,10 @@
   /* Style zostały zachowane z poprzedniej wersji */
   
   .opinions {
+    position: relative; /* Konieczne do poprawnego pozycjonowania samochodu */
+	text-align: center;
+	margin: 50px auto;
+	max-width: 800px;
     text-align: center;
   }
   
@@ -83,7 +87,7 @@
     border-radius: 8px;
     padding: 20px;
     margin-bottom: 20px;
-    width: 95%;
+    width: 100%;
     max-width: 800px; /* Zwiększyłem maksymalną szerokość opinii */
     text-align: center; /* Wyrównanie tekstu do lewej strony */
   }
