@@ -20,7 +20,7 @@
 				<span class="material-icons">car_rental</span>
 				<span class="text">Flota</span>
 			</router-link>
-			<router-link to="/team" class="button">
+			<router-link to="/opinions" class="button">
 				<span class="material-icons">thumb_up</span>
 				<span class="text">Opinie</span>
 			</router-link>

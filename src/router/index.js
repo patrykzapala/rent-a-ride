@@ -12,6 +12,10 @@ const router = createRouter({
 			path: '/flota',
 			component: () => import('../views/Flota.vue')
 		},
+		{
+			path: '/opinions',
+			component: () => import('../views/Opinions.vue')
+		},
 	],
 })
 
