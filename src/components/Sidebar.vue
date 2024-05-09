@@ -16,7 +16,7 @@
 				<span class="material-icons">home</span>
 				<span class="text">O nas</span>
 			</router-link>
-			<router-link to="/about" class="button">
+			<router-link to="/flota" class="button">
 				<span class="material-icons">car_rental</span>
 				<span class="text">Flota</span>
 			</router-link>

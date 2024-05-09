@@ -9,8 +9,8 @@ const router = createRouter({
 			component: Home
 		},
 		{
-			path: '/about',
-			component: () => import('../views/About.vue')
+			path: '/flota',
+			component: () => import('../views/Flota.vue')
 		},
 	],
 })
