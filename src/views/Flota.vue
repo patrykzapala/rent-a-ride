@@ -5,6 +5,15 @@
 		<div class="car-card" v-for="(car, index) in cars" :key="index" @click="showCarForm(car)">
 		  <img class="car-image" :src="car.image" :alt="car.name">
 		  <h3>{{ car.name }}</h3>
+		  <p> 
+			<span class="material-icons">oil_barrel</span> {{ car.fuelType }}
+			</p>
+			<p> 
+				<span class="material-icons">settings</span>{{ car.gearbox }}
+			</p>
+			<p> 
+			<span class="material-icons">group_add</span> {{ car.capacity }}
+			</p>
 		</div>
 	  </div>
 	  <form v-else @submit.prevent="submitForm">
@@ -33,15 +42,70 @@
 	data() {
 	  return {
 		cars: [
-		  { name: 'Tesla Model S', image: 'https://cdn.euroncap.com/media/72827/tesla-model-s.png' },		  
-		  { name: 'Hyundai IONIQ 6', image: 'https://cdn.euroncap.com/media/72823/hyundai-ioniq-6.png?mode=crop&width=688&height=457' },
-		  { name: 'Nissan Quashqai', image: 'https://cdn.euroncap.com/media/66922/nissan-qashqai.png?mode=crop&width=688&height=457' },
-		  { name: 'Skoda Fabia', image: 'https://cdn.euroncap.com/media/65733/skoda-fabia.png?mode=crop&width=688&height=457' },
-		  { name: 'Tesla Model Y', image: 'https://cdn.euroncap.com/media/70303/tesla-model-y.png?mode=crop&width=688&height=457' },
-		  { name: 'Peugeot Partner', image: 'https://euroncap.blob.core.windows.net/media/80275/peugeot-partner.png' },
-		  { name: 'Fiat Ducato', image: 'https://euroncap.blob.core.windows.net/media/67741/fiat-ducato.png' },
-		  { name: 'BMW 5 Series', image: 'https://cdn.euroncap.com/media/78833/bmw-5-series.png?mode=crop&width=359&height=235' },
-		  { name: 'Jeep Renegade', image: 'https://cdn.euroncap.com/media/56661/jeep-renegade.png' }
+		  { 
+			name: 'Tesla Model S', 
+			image: 'https://cdn.euroncap.com/media/72827/tesla-model-s.png',
+			fuelType: 'Elektryczny',
+			gearbox: 'Automatyczna',
+			capacity: '5 osobowy' 
+		  },		  
+		  {	
+			name: 'Hyundai IONIQ 6', 
+			image: 'https://cdn.euroncap.com/media/72823/hyundai-ioniq-6.png?mode=crop&width=688&height=457',
+			fuelType: 'Elektryczny',
+			gearbox: 'Automatyczna',
+			capacity: '4 osobowy' 
+		  },
+		  { 
+			name: 'Nissan Quashqai', 
+			image: 'https://cdn.euroncap.com/media/66922/nissan-qashqai.png?mode=crop&width=688&height=457',
+			fuelType: 'Hybrydowy',
+			gearbox: 'Manualna',
+			capacity: '5 osobowy'  
+		  },
+		  { 
+			name: 'Skoda Fabia', 
+			image: 'https://cdn.euroncap.com/media/65733/skoda-fabia.png?mode=crop&width=688&height=457',
+			fuelType: 'Benzyna',
+			gearbox: 'Automatyczna',
+			capacity: '5 osobowy'  
+		},
+		  { 
+			name: 'Tesla Model Y', 
+			image: 'https://cdn.euroncap.com/media/70303/tesla-model-y.png?mode=crop&width=688&height=457',
+			fuelType: 'Elektryczny',
+			gearbox: 'Automatyczna',
+			capacity: '4 osobowy' 
+		},
+		  { 
+			name: 'Peugeot Partner', 
+			image: 'https://euroncap.blob.core.windows.net/media/80275/peugeot-partner.png',
+			fuelType: 'Hybrydowy',
+			gearbox: 'Manualna',
+			capacity: '7 osobowy'  
+		},
+		  { 
+			name: 'Fiat Ducato', 
+			image: 'https://euroncap.blob.core.windows.net/media/67741/fiat-ducato.png',
+			fuelType: 'Diesel',
+			gearbox: 'Manualna',
+			capacity: '9 osobowy'  
+		},
+		  { 
+			name: 'BMW 5 Series', 
+			image: 'https://cdn.euroncap.com/media/78833/bmw-5-series.png?mode=crop&width=359&height=235',
+			fuelType: 'Benzyna',
+			gearbox: 'Automatyczna',
+			capacity: '5 osobowy'  
+		},
+		  { 
+			name: 'Jeep Renegade', 
+			image: 'https://cdn.euroncap.com/media/56661/jeep-renegade.png',
+			fuelType: 'Diesel',
+			gearbox: 'Manualna',
+			capacity: '4 osobowy' 
+		 }
+
 		],
 		showForm: false,
 		selectedCar: null,
