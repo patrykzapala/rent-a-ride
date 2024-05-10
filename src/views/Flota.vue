@@ -11,9 +11,9 @@
         <option value="Hybrydowy">Hybrydowy</option>
       </select>
 
-      <label for="capacity">Wybierz pojemność:</label>
+      <label for="capacity">Liczba osób :</label>
       <select v-model="selectedCapacity" id="capacity">
-        <option value="">Dowolne</option>
+        <option value="">Dowolna</option>
         <option value="4">4</option>
         <option value="5">5</option>
         <option value="6+">6+</option>
@@ -21,7 +21,7 @@
 
       <label for="gearbox">Wybierz rodzaj skrzyni biegów:</label>
       <select v-model="selectedGearbox" id="gearbox">
-        <option value="">Dowolne</option>
+        <option value="">Dowolna</option>
         <option value="Manualna">Manualna</option>
         <option value="Automatyczna">Automatyczna</option>
       </select>
@@ -55,11 +55,21 @@
       <label for="endDate">Data Zwrotu:</label>
       <input type="date" id="endDate" v-model="rentalData.endDate" required>
 
-      <label for="startLocation">Miejsce Odbioru:</label>
-      <input type="text" id="startLocation" v-model="rentalData.startLocation" required>
+	  <label for="startLocation">Miejsce Odbioru:</label>
+		<select v-model="rentalData.startLocation" id="startLocation">
+		<option value="Kraków">Kraków</option>
+		<option value="Warszawa">Warszawa</option>
+		<option value="Wrocław">Wrocław</option>
+		<!-- Dodaj więcej opcji, jeśli potrzebujesz -->
+		</select>
 
-      <label for="endLocation">Miejsce Zwrotu:</label>
-      <input type="text" id="endLocation" v-model="rentalData.endLocation" required>
+		<label for="endLocation">Miejsce Zwrotu:</label>
+		<select v-model="rentalData.endLocation" id="endLocation">
+		<option value="Kraków">Kraków</option>
+		<option value="Warszawa">Warszawa</option>
+		<option value="Wrocław">Wrocław</option>
+		<!-- Dodaj więcej opcji, jeśli potrzebujesz -->
+		</select>
 
 	  <div class="button-wrapper">
         <button type="submit">Sprawdz</button>
@@ -213,8 +223,8 @@
 		rentalData: {
 		  startDate: '',
 		  endDate: '',
-		  startLocation: '',
-		  endLocation: ''
+		  startLocation: 'Kraków',
+		  endLocation: 'Kraków'
 		}
 	  };
 	},
@@ -382,6 +392,11 @@ form input {
   margin-bottom: 10px;
   border: 1px solid #ccc;
   border-radius: 4px;
+}
+
+form select {
+  padding: 8px; /* Zwiększamy pola wypełnienia */
+  font-size: 16px; /* Zwiększamy rozmiar czcionki */
 }
 
 form button {
