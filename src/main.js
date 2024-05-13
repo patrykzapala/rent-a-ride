@@ -5,3 +5,5 @@ import router from './router';
 createApp(App)
   .use(router) // Dodanie routera do aplikacji
   .mount('#app');
+
+  

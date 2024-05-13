@@ -1,7 +1,7 @@
 <template>
 	<aside :class="`${is_expanded ? 'is-expanded' : ''}`">
 	  <div class="logo">
-		<img :src="logoURL" alt="Vue" /> 
+		<img :src="logoURL" alt="Vue" />
 	  </div>
   
 	  <div class="menu-toggle-wrap">
@@ -31,7 +31,7 @@
 	  </div>
   
 	  <div class="flex"></div>
-	  
+  
 	  <div class="menu">
 		<template v-if="!isLoggedIn">
 		  <form @submit.prevent="login">
@@ -44,12 +44,30 @@
 			  <input type="password" id="password" v-model="password">
 			</div>
 			<button type="submit" class="button">Zaloguj</button>
+			<button @click="showRegisterForm = true" class="button">Dodaj konto</button>
 		  </form>
 		</template>
-		<button v-else @click="logout" class="button">
-		  <span class="material-icons">logout</span>
-		  <span class="text">Wyloguj</span>
-		</button>
+		<template v-else>
+		  <button @click="logout" class="button">
+			<span class="material-icons">logout</span>
+			<span class="text">Wyloguj</span>
+		  </button>
+		</template>
+	  </div>
+  
+	  <!-- Formularz rejestracji -->
+	  <div v-if="showRegisterForm" class="menu">
+		<form @submit.prevent="register">
+		  <div class="form-group">
+			<label for="newUsername">Nowa nazwa użytkownika:</label>
+			<input type="text" id="newUsername" v-model="newUsername">
+		  </div>
+		  <div class="form-group">
+			<label for="newPassword">Nowe hasło:</label>
+			<input type="password" id="newPassword" v-model="newPassword">
+		  </div>
+		  <button type="submit" class="button">Zarejestruj</button>
+		</form>
 	  </div>
 	</aside>
   </template>
@@ -61,23 +79,45 @@
   
   const router = useRouter();
   
-  const username = ref('');
+  const storedUser = localStorage.getItem('user');
+  const storedIsLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+  
+  const username = ref(storedUser ? JSON.parse(storedUser).username : '');
   const password = ref('');
-  const isLoggedIn = ref(false);
+  const isLoggedIn = ref(storedIsLoggedIn);
+  const newUsername = ref('');
+  const newPassword = ref('');
+  const showRegisterForm = ref(false);
   
   const login = () => {
-	// Tutaj dodaj logikę logowania
-	// Przykładowa logika:
 	if (username.value === 'admin' && password.value === 'password') {
 	  isLoggedIn.value = true;
+	  localStorage.setItem('isLoggedIn', true);
+	  localStorage.setItem('user', JSON.stringify({ username: username.value }));
+	
 	}
   };
   
   const logout = () => {
-	// Po wylogowaniu ustaw isLoggedIn na false
 	isLoggedIn.value = false;
-	// Przekieruj użytkownika na stronę logowania po wylogowaniu
-	router.push('/login');
+	localStorage.setItem('isLoggedIn', false);
+	localStorage.removeItem('user');
+	router.push('/');
+  };
+  
+  const register = () => {
+	if (newUsername.value && newPassword.value) {
+	  const newUser = {
+		username: newUsername.value,
+		password: newPassword.value
+	  };
+	  localStorage.setItem('user', JSON.stringify(newUser));
+	  isLoggedIn.value = true;
+	  username.value = newUsername.value;
+	  password.value = newPassword.value;
+	  showRegisterForm.value = false;
+	  console.log("Registered successfully. showRegisterForm:", showRegisterForm.value);
+	}
   };
   
   const is_expanded = ref(localStorage.getItem('is_expanded') === 'true');
@@ -94,11 +134,11 @@
 	flex-direction: column;
 	background-color: #564e10d3;
 	color: var(--light);
-	width: 200px; /* Szerokość bocznego panelu */
+	width: 200px;
 	overflow: hidden;
 	min-height: 100vh;
 	padding: 1rem;
-	transition: width 0.2s ease-in-out; /* Dodane przejście dla zmiany szerokości */
+	transition: width 0.2s ease-in-out;
   }
   
   .logo {
@@ -133,7 +173,8 @@
 	transform: translateX(0.5rem);
   }
   
-  h3, .button .text {
+  h3,
+  .button .text {
 	opacity: 1;
 	transition: opacity 0.3s ease-in-out;
   }
@@ -161,7 +202,8 @@
 	background-color: lightblue;
   }
   
-  .button .material-icons, .button .text {
+  .button .material-icons,
+  .button .text {
 	color: var(--light);
 	transition: 0.2s ease-in-out;
   }
