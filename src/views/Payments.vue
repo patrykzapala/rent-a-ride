@@ -45,6 +45,7 @@
     methods: {
       async processPayment() {
         try {
+          console.log('Rozpoczęcie procesu płatności...');
           // Tworzymy płatność za pomocą Stripe
           const { error } = await this.stripe.createToken('card', {
             card: {
@@ -64,6 +65,18 @@
   
           // Po pomyślnym przetworzeniu płatności z serwera ustaw `paymentConfirmed` na true
           this.paymentConfirmed = true;
+
+          // Jeśli użytkownik jest zalogowany, dodaj zamówienie do historii zamówień
+          if (this.isLoggedIn) {
+            const order = {
+                cardNumber: this.cardNumber,
+                expiryDate: this.expiryDate,
+                cvc: this.cvc,
+                // Dodaj inne dane zamówienia
+            };
+            // Zapisz zamówienie w localStorage
+            localStorage.setItem('order', JSON.stringify(order));
+        }
   
         } catch (err) {
           console.error('Błąd podczas przetwarzania płatności:', err);

@@ -15,6 +15,14 @@
 		<p>
 		  Przekonaj się sam! Zarezerwuj już dziś i dołącz do grona zadowolonych podróżników, którzy wybierają Rent-a-Ride jako swojego partnera w podróży.
 		</p>
+		<!-- Wyświetl zamówienie, jeśli istnieje -->
+		<div v-if="order" class="order-details">
+			<h2>Twoje ostatnie zamówienie:</h2>
+			<p>Numer karty: {{ order.cardNumber }}</p>
+			<p>Data ważności: {{ order.expiryDate }}</p>
+			<p>CVC: {{ order.cvc }}</p>
+			<!-- Dodaj więcej informacji o zamówieniu, jeśli istnieją -->
+		</div>
 	  </div>
   
 	 

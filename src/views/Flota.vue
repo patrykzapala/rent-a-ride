@@ -256,15 +256,11 @@
 		this.selectedCar = car;	
 	  },
 	  submitForm() {
-		// Check if the return date is earlier than the start date
 		if (this.rentalData.startDate && this.rentalData.endDate && this.rentalData.endDate < this.rentalData.startDate) {
-    // Display an error message or handle the invalid input accordingly
     alert("Data zwrotu nie może być wcześniejsza niż data odbioru.");
-    return; // Prevent form submission
+    return; 
   }
-		// Handle form submission here
 		console.log("Form submitted with data:", this.rentalData);
-		// Reset form state after submission
 		this.showForm = false;
 		this.selectedCar = null;
 		this.rentalData = {
@@ -285,34 +281,28 @@
       };
     },
 	applyFilters() {
-  // Create a copy of the original cars array to filter from
+
   const carsToFilter = [...this.originalCars];
 
-  // Filter cars based on selected filter options
   const filteredCars = carsToFilter.filter(car => {
     let passFilter = true;
 
-    // Filter by fuel type
     if (this.selectedFuelType && car.fuelType !== this.selectedFuelType) {
       passFilter = false;
     }
 
-    // Filter by capacity
     if (this.selectedCapacity) {
       if (this.selectedCapacity === '6+') {
-        // Filter for capacity 5 and above
         if (parseInt(car.capacity) < 6) {
           passFilter = false;
         }
       } else {
-         // Filter for exact capacity
         if (parseInt(car.capacity) !== parseInt(this.selectedCapacity)) {
           passFilter = false;
         }
       }
     }
 
-    // Filter by gearbox
     if (this.selectedGearbox && car.gearbox !== this.selectedGearbox) {
       passFilter = false;
     }
@@ -320,49 +310,39 @@
     return passFilter;
   });
 
-  // Update cars with filtered results
   this.cars = filteredCars;
 },
 clearFilters() {
-      // Reset filter options
       this.selectedFuelType = '';
       this.selectedCapacity = '';
       this.selectedGearbox = '';
       
-      // Reset cars to original list
       this.cars = [...this.originalCars];
     },
-	 // Metoda wyświetlająca modal
 	 displayModal() {
       this.showModal = true;
     },
 
-    // Metoda ukrywająca modal
     hideModal() {
       this.showModal = false;
     },
 
-    // Metoda wywoływana po kliknięciu "Kontynuuj bez logowania"
     continueWithoutLogin() {
 	  this.$router.push('/payments');
       this.hideModal();
     },
 
-    // Metoda wywoływana po kliknięciu "Przejdź do płatności"
     goToPayment() {
 	  this.$router.push('/payments');
       this.hideModal();
     },
-	  // Metoda wywoływana po kliknięciu przycisku "Zarezerwuj"
+
 	  reserveButtonClicked() {
       this.reserveClicked = true;
 	  this.displayModal(); 
-      // Wyświetl modal lub wykonaj inne działania
     },
-    // Metoda wywoływana po zamknięciu modala
     closeModal() {
-      this.reserveClicked = false; // Przywróć widoczność reszty strony
-      // Ukryj modal lub wykonaj inne działania
+      this.reserveClicked = false; 
     }
 
   }
@@ -371,7 +351,7 @@ clearFilters() {
   
   
   <style scoped>
-/* Add your scoped styles here */
+
 #about-page {
   padding: 20px;
 }
@@ -417,7 +397,7 @@ clearFilters() {
   border: 1px solid #ccc;
   border-radius: 5px;
   text-align: center;
-  cursor: pointer; /* Add cursor pointer to indicate clickable */
+  cursor: pointer; 
 }
 
 .car-image {
@@ -441,7 +421,7 @@ form label {
 }
 
 form input {
-  width: calc(30% - 10px); /* Set the width of inputs to 50% */
+  width: calc(30% - 10px); 
   padding: 8px;
   margin-bottom: 10px;
   border: 1px solid #ccc;
@@ -449,8 +429,8 @@ form input {
 }
 
 form select {
-  padding: 8px; /* Zwiększamy pola wypełnienia */
-  font-size: 16px; /* Zwiększamy rozmiar czcionki */
+  padding: 8px; 
+  font-size: 16px; 
 }
 
 form button {
@@ -471,29 +451,29 @@ form button[type="button"]:hover {
   background-color: #0056b3;
 }
 
-/* Dodaj styl dla większego modala */
+
 .modal-content.modal-large {
-  width: 60%; /* Ustaw szerokość modala */
-  margin: 10% auto; /* Wyśrodkuj modal na ekranie */
+  width: 60%; 
+  margin: 10% auto; 
 }
 
-/* Styl dla czytelniejszych przycisków */
+
 .btn-primary,
 .btn-secondary {
   padding: 10px 20px;
-  margin: 0 10px; /* Dodaj odstęp między przyciskami */
+  margin: 0 10px; 
   border: none;
   border-radius: 5px;
   cursor: pointer;
 }
 
 .btn-primary {
-  background-color: #007bff; /* Kolor tła dla przycisku pierwszego */
+  background-color: #007bff; 
   color: #fff;
 }
 
 .btn-secondary {
-  background-color: #ccc; /* Kolor tła dla przycisku drugiego */
+  background-color: #ccc; 
   color: #000;
 }
 </style>
