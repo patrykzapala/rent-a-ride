@@ -47,6 +47,7 @@
 			<div class="form-group">
 			  <label for="password">Hasło:</label>
 			  <input type="password" id="password" v-model="password">
+			  <p v-if="loginError" class="error-message">Nieprawidłowa nazwa użytkownika lub hasło.</p>
 			</div>
 			<button type="submit" class="button">Zaloguj</button>
 			<button @click="showRegisterForm = true; showLoginForm = false" class="button">Dodaj konto</button>
@@ -95,6 +96,8 @@
   const newPassword = ref('');
   const showRegisterForm = ref(false);
   
+  const loginError = ref(false);
+
 const login = () => {
 	const users = JSON.parse(localStorage.getItem('users') || '[]');
   const user = users.find(u => u.username === username.value && u.password === password.value);
@@ -104,7 +107,10 @@ const login = () => {
     localStorage.setItem('user', JSON.stringify({ username: username.value }));
     showLoginForm.value = false; // Ustawienie wartości na false, aby ukryć formularz logowania
     showRegisterForm.value = false; // Upewnienie się, że formularz rejestracji jest również ukryty
-  }
+	loginError.value = false; // resetujemy wartość błędu po udanym zalogowaniu
+} else {
+      loginError.value = true; // ustawiamy wartość na true, jeśli logowanie nie powiodło się
+    }
 };
   
   const logout = () => {
@@ -252,6 +258,12 @@ const login = () => {
   /* Styl dla zwiniętego menu */
   aside.is-expanded {
 	width: 250px; /* Domyślna szerokość dla rozciągniętego menu */
+  }
+
+  .error-message {
+    color: red;
+    font-size: 0.875rem;
+    margin-top: 0.5rem;
   }
   </style>
   
