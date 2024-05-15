@@ -18,10 +18,13 @@ const routes = [
     path: '/contact',
     component: () => import('../views/Contact.vue')
   },
-//   {
-//     path: '/login',
-//     component: () => import('../views/Login.vue')
-//   }
+  {
+    path: '/history',
+    // name: 'History',
+    component: () => import('../views/History.vue'),
+    meta: { requiresAuth: true }
+  },
+
 ];
 
 const router = createRouter({
@@ -30,3 +33,5 @@ const router = createRouter({
 });
 
 export default router;
+
+

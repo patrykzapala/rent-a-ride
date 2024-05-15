@@ -28,6 +28,11 @@
 		  <span class="material-icons">email</span>
 		  <span class="text">Kontakt</span>
 		</router-link>
+		<router-link v-if="isLoggedIn" to="/history" class="button">
+ 		 <span class="material-icons">history</span>
+  		 <span class="text">Historia zamówień</span>
+		</router-link>
+
 	  </div>
   
 	  <div class="flex"></div>
@@ -44,7 +49,8 @@
 			  <input type="password" id="password" v-model="password">
 			</div>
 			<button type="submit" class="button">Zaloguj</button>
-			<button @click="showRegisterForm = true" class="button">Dodaj konto</button>
+			<button @click="showRegisterForm = true; showLoginForm = false" class="button">Dodaj konto</button>
+
 		  </form>
 		</template>
 		<template v-else>
@@ -89,14 +95,15 @@
   const newPassword = ref('');
   const showRegisterForm = ref(false);
   
-  const login = () => {
-	if (username.value === 'admin' && password.value === 'password') {
-	  isLoggedIn.value = true;
-	  localStorage.setItem('isLoggedIn', true);
-	  localStorage.setItem('user', JSON.stringify({ username: username.value }));
-	
-	}
-  };
+const login = () => {
+  if (username.value === 'admin' && password.value === 'password') {
+    isLoggedIn.value = true;
+    localStorage.setItem('isLoggedIn', true);
+    localStorage.setItem('user', JSON.stringify({ username: username.value }));
+    showLoginForm.value = false; // Ustawienie wartości na false, aby ukryć formularz logowania
+    showRegisterForm.value = false; // Upewnienie się, że formularz rejestracji jest również ukryty
+  }
+};
   
   const logout = () => {
 	isLoggedIn.value = false;
