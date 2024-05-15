@@ -14,6 +14,11 @@ const routes = [
     path: '/opinions',
     component: () => import('../views/Opinions.vue')
   },
+  
+  {
+    path: '/payments',
+    component: () => import('../views/Payments.vue')
+  },
   {
     path: '/contact',
     component: () => import('../views/Contact.vue')
@@ -24,6 +29,7 @@ const routes = [
     component: () => import('../views/History.vue'),
     meta: { requiresAuth: true }
   },
+
 
 ];
 

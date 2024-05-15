@@ -92,6 +92,7 @@
   const username = ref(storedUser ? JSON.parse(storedUser).username : '');
   const password = ref('');
   const isLoggedIn = ref(storedIsLoggedIn);
+  const showLoginForm = ref('');
   const newUsername = ref('');
   const newPassword = ref('');
   const showRegisterForm = ref(false);
@@ -171,6 +172,7 @@ const login = () => {
 	position: relative;
 	top: 0;
 	transition: 0.2s ease-in-out;
+
   }
   
   .menu-toggle-wrap .menu-toggle {
