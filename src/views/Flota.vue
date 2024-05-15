@@ -1,5 +1,27 @@
 <template>
-	<main id="about-page">
+	<main id="about-page" v-if="!reserveClicked">
+		 <!-- Modal dla użytkowników niezalogowanych -->
+		 <div class="modal" v-if="!isLoggedIn && showModal">
+    <div class="modal-content modal-large">
+      <p>Czy chcesz kontynuować bez logowania?</p>
+      <div class="modal-buttons">
+        <button class="btn-primary" @click="continueWithoutLogin">Kontynuuj bez logowania</button>
+        <button class="btn-secondary" @click="hideModal">Powrót</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal dla zalogowanych użytkowników -->
+  <div class="modal" v-else-if="isLoggedIn && showModal">
+    <div class="modal-content modal-large">
+      <p>Czy chcesz przejść do płatności?</p>
+      <div class="modal-buttons">
+        <button class="btn-primary" @click="goToPayment">Przejdź do płatności</button>
+        <button class="btn-secondary" @click="hideModal">Powrót</button>
+      </div>
+    </div>
+  </div>
+
 	  <h1>Nasze samochody</h1>
 	  <div v-if="!showForm" class="filter-options">
       <label for="fuelType">Wybierz rodzaj paliwa:</label>
@@ -69,10 +91,11 @@
 		</select>
 
 	  <div class="button-wrapper">
-        <button type="submit">Sprawdz</button>
+        <button type="submit" @click="displayModal">Zarezerwuj</button>
         <button type="button" @click="goBack">Powrót</button>
       </div>
     </form>
+
 	</main>
   </template>
   
@@ -80,6 +103,8 @@
   export default {
 	data() {
 	  return {
+		isLoggedIn: localStorage.getItem('isLoggedIn') === 'true',
+		showModal: false,
 		cars: [
 		  { 
 			name: 'Tesla Model S', 
@@ -306,6 +331,38 @@ clearFilters() {
       
       // Reset cars to original list
       this.cars = [...this.originalCars];
+    },
+	 // Metoda wyświetlająca modal
+	 displayModal() {
+      this.showModal = true;
+    },
+
+    // Metoda ukrywająca modal
+    hideModal() {
+      this.showModal = false;
+    },
+
+    // Metoda wywoływana po kliknięciu "Kontynuuj bez logowania"
+    continueWithoutLogin() {
+	  this.$router.push('/payments');
+      this.hideModal();
+    },
+
+    // Metoda wywoływana po kliknięciu "Przejdź do płatności"
+    goToPayment() {
+	  this.$router.push('/payments');
+      this.hideModal();
+    },
+	  // Metoda wywoływana po kliknięciu przycisku "Zarezerwuj"
+	  reserveButtonClicked() {
+      this.reserveClicked = true;
+	  this.displayModal(); 
+      // Wyświetl modal lub wykonaj inne działania
+    },
+    // Metoda wywoływana po zamknięciu modala
+    closeModal() {
+      this.reserveClicked = false; // Przywróć widoczność reszty strony
+      // Ukryj modal lub wykonaj inne działania
     }
 
   }
@@ -412,5 +469,31 @@ form button[type="submit"] {
 form button[type="submit"]:hover,
 form button[type="button"]:hover {
   background-color: #0056b3;
+}
+
+/* Dodaj styl dla większego modala */
+.modal-content.modal-large {
+  width: 60%; /* Ustaw szerokość modala */
+  margin: 10% auto; /* Wyśrodkuj modal na ekranie */
+}
+
+/* Styl dla czytelniejszych przycisków */
+.btn-primary,
+.btn-secondary {
+  padding: 10px 20px;
+  margin: 0 10px; /* Dodaj odstęp między przyciskami */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.btn-primary {
+  background-color: #007bff; /* Kolor tła dla przycisku pierwszego */
+  color: #fff;
+}
+
+.btn-secondary {
+  background-color: #ccc; /* Kolor tła dla przycisku drugiego */
+  color: #000;
 }
 </style>
