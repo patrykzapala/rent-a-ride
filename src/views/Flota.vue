@@ -26,7 +26,6 @@
         <option value="Automatyczna">Automatyczna</option>
       </select>
 	  <button @click="applyFilters">Filtruj</button>
-	   <!-- Clear filter button -->
 	   <button @click="clearFilters">Wyczyść filtry</button>
     </div>
 	  <div v-if="!showForm" class="car-container">
@@ -60,7 +59,6 @@
 		<option value="Kraków">Kraków</option>
 		<option value="Warszawa">Warszawa</option>
 		<option value="Wrocław">Wrocław</option>
-		<!-- Dodaj więcej opcji, jeśli potrzebujesz -->
 		</select>
 
 		<label for="endLocation">Miejsce Zwrotu:</label>
@@ -68,7 +66,6 @@
 		<option value="Kraków">Kraków</option>
 		<option value="Warszawa">Warszawa</option>
 		<option value="Wrocław">Wrocław</option>
-		<!-- Dodaj więcej opcji, jeśli potrzebujesz -->
 		</select>
 
 	  <div class="button-wrapper">

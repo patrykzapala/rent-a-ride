@@ -96,7 +96,9 @@
   const showRegisterForm = ref(false);
   
 const login = () => {
-  if (username.value === 'admin' && password.value === 'password') {
+	const users = JSON.parse(localStorage.getItem('users') || '[]');
+  const user = users.find(u => u.username === username.value && u.password === password.value);
+  if (user) {
     isLoggedIn.value = true;
     localStorage.setItem('isLoggedIn', true);
     localStorage.setItem('user', JSON.stringify({ username: username.value }));
@@ -118,7 +120,7 @@ const login = () => {
 		username: newUsername.value,
 		password: newPassword.value
 	  };
-	  localStorage.setItem('user', JSON.stringify(newUser));
+	  localStorage.setItem('users', JSON.stringify([...JSON.parse(localStorage.getItem('users') || '[]'), newUser]));
 	  isLoggedIn.value = true;
 	  username.value = newUsername.value;
 	  password.value = newPassword.value;
